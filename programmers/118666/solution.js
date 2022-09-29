@@ -1,5 +1,4 @@
 // https://school.programmers.co.kr/learn/courses/30/lessons/118666?language=javascript
-// TODO:: 수정필요, 채점시 40/100
 function solution(survey, choices) {
   var answer = '';
   let type = ['R', 'T', 'C', 'F', 'J', 'M', 'A', 'N']
@@ -15,7 +14,7 @@ function solution(survey, choices) {
       typeIndex = type.indexOf(surveyItem[1]);
     }
 
-    score[typeIndex] = getScore(choices[index]);
+    score[typeIndex] += Math.abs(choices[index] - 4);
   })
 
   for(let i=0; i<score.length; i+=2) {
@@ -29,18 +28,4 @@ function solution(survey, choices) {
   }
 
   return answer;
-}
-
-function getScore(choice) {
-  let score = 0;
-
-  if (choice === 1 || choice === 7) {
-    score = 3;
-  } else if (choice === 2 || choice === 6) {
-    score = 2;
-  } else if (choice === 3 || choice === 5) {
-    score = 1;
-  }
-
-  return score;
 }
