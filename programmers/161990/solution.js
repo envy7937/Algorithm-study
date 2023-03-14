@@ -1,23 +1,23 @@
 // https://school.programmers.co.kr/learn/courses/30/lessons/161990
 
 const solution = (wallpaper) => {
-  let startX = []
-  let startY = []
-  let endX = []
-  let endY = []
+  let pointX = []
+  let pointY = []
 
-  wallpaper.map((rows, index) => {
-    [...rows].map((cols, key) => {
+  wallpaper.map((rows, x) => {
+    [...rows].map((cols, y) => {
       if (cols === '#') {
-        startX.push(index)
-        startY.push(key)
-        endX.push(index + 1)
-        endY.push(key + 1)
+        pointX.push(x)
+        pointY.push(y)
       }
     });
   })
 
-  return [Math.min(...startX), Math.min(...startY), Math.max(...endX), Math.max(...endY)];
+  return [
+    Math.min(...pointX),
+    Math.min(...pointY),
+    Math.max(...pointX) + 1,
+    Math.max(...pointY) + 1];
 }
 
 // return [lux, luy, rdx, rdy]
