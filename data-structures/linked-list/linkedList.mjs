@@ -1,9 +1,8 @@
 // 연결 리스트 구현
 // LInit, LInsert, LFirst, LNext, LRemove, LCount
-
 const LIST_LENGTH = 100
 
-class LinkedList {
+export class LinkedList {
   constructor() {
     this.init()
   }
@@ -51,7 +50,7 @@ class LinkedList {
     }
 
     this.position = 0
-    return this.list[this.position]
+    return true
   }
 
   next() {
@@ -60,55 +59,22 @@ class LinkedList {
     }
 
     this.position++
+    return true
+  }
+
+  getData() {
     return this.list[this.position]
   }
 
   count() {
     return this.length
   }
-}
 
-const main = () => {
-  const list = new LinkedList()
-  let data = null
-
-  list.insert(11)
-  list.insert(11)
-  list.insert(22)
-  list.insert(22)
-  list.insert(33)
-
-  console.log(`현재 데이터 수: ${list.count}`)
-
-  if ((data = list.first())) {
-    console.log(data)
-
-    while((data = list.next())) {
-      console.log(data)
+  update(value) {
+    if (this.position < 0) {
+      console.error('업데이트가 불가능합니다.')
+      return false
     }
-  }
-
-  if ((data = list.first())) {
-    if (data === 22) {
-      list.remove()
-    }
-
-    while((data = list.next())) {
-      if (data === 22) {
-        list.remove()
-      }
-    }
-  }
-
-  console.log(`현재 데이터 수: ${list.count}`)
-
-  if ((data = list.first())) {
-    console.log(data)
-
-    while((data = list.next())) {
-      console.log(data)
-    }
+    this.list[this.position] = value
   }
 }
-
-main()
