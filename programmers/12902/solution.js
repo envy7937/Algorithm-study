@@ -21,11 +21,31 @@
 // f(8) = 153, f(8) = 3f(6) + 2f(4) + 2f(2) + 2
 
 // f(n) = 3f(n-2) + 2f(n-4) + 2f(n-6) + ... + 2f(2) + 2f(0)
+// f(n) = 3f(n-2) + 2(f(n-4) + f(n-6) + ... + f(2) + f(0))
 
 function solution(n) {
+    if (n % 2 !== 0) return 0;
+
+    const MOD = 1000000007;
+    const dp = new Array(n+1).fill(0);
+    dp[0] = 1;
+    dp[2] = 3;
+
+    let sum = dp[0];
+
+    for (let i = 4; i <= n; i += 2) {
+        dp[i] = (3 * dp[i - 2] + 2 * sum) % MOD;
+        sum = (sum + dp[i - 2]) % MOD
+    }
+
+    return dp[n];
+}
+
+function solution2(n) {
     // 동적 계획법(Dynamic Programming, DP)을 사용한 풀이
     if (n % 2 !== 0) return 0;
 
+    const MOD = 1000000007;
     const dp = new Array(n+1).fill(0);
     dp[0] = 1;
     dp[2] = 3;
@@ -37,15 +57,16 @@ function solution(n) {
             dp[i] += 2 * dp[j];
         }
 
-        dp[i] = dp[i] % 1000000007;
+        dp[i] = dp[i] % MOD;
     }
 
     return dp[n];
 }
 
 // 처음 풀이 재귀호출
-function solutionFirst(n) {
+function solution1(n) {
     let list = new Array(n).fill(0);
+    const MOD = 1000000007;
 
     for(let i = 1; i <= n; i ++) {
         if (i % 2 === 0) {
@@ -60,7 +81,7 @@ function solutionFirst(n) {
                     }
                 }
 
-                list[i-1] = result % 1000000007;
+                list[i-1] = result % MOD;
             }
         }
     }
